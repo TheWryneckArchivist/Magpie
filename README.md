@@ -1,2 +1,3 @@
 # Wryneck
-A language translator
+
+A configuration file format with pre-packaged language translator.
