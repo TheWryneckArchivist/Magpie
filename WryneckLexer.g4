@@ -1,7 +1,7 @@
 lexer grammar WryneckLexer;
 
 // === RESERVED KEYWORDS ===
-VERSION_KEY   : '_version' ;
+VERSION_KEY   : 'version' ;
 IMPORT        : 'import' ;
 MACRO         : 'macro' ;
 RESOURCE      : 'resource' ;
