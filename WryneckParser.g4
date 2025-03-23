@@ -143,7 +143,7 @@ primaryExpression
     | functionCall
     | variable
     | lambdaExpr
-    | '(' expression ')'
+    | L_PAREN expression R_PAREN
     | list
     | dictionary
     ;
