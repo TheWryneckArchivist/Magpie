@@ -1,82 +1,100 @@
 lexer grammar WryneckLexer;
 
 // === RESERVED KEYWORDS ===
-// Keywords defining specific configurations and grammar functionalities
-VERSION_KEY : '_version' ; // Specifies the version field for the configuration
-IMPORT : 'import' ; // Imports external configuration files
-MACRO : 'macro' ; // Defines reusable blocks of configuration
-RESOURCE : 'resource' ; // Links external resources like files or assets
-DEPRECATED : 'deprecated' ; // Marks features as deprecated
-STABLE : 'stable' ; // Marks features as stable and production-ready
-EXPERIMENTAL : 'experimental' ; // Marks features as experimental
-PATH : 'path' ; // Specifies directory paths in configurations
-LOAD : 'load' ; // Dynamically loads resources or files during runtime
-EXTENDS : 'extends' ; // Enables inheritance in macro definitions
-AS : 'as' ; // Provides aliasing functionality for imports
+VERSION_KEY   : '_version' ;
+IMPORT        : 'import' ;
+MACRO         : 'macro' ;
+RESOURCE      : 'resource' ;
+DEPRECATED    : 'deprecated' ;
+STABLE        : 'stable' ;
+EXPERIMENTAL  : 'experimental' ;
+PATH          : 'path' ;
+LOAD          : 'load' ;
+EXTENDS       : 'extends' ;
+AS            : 'as' ;
+CONST         : 'const' ;
+IF            : 'if' ;
+ELSE          : 'else' ;
 
 
 // === VERSION TOKENS ===
-// Tokens for specifying version information
-VERSION_LITERAL : [0-9]+ ('.' [0-9]+)+ ; // Represents version numbers (e.g., 1.0, 2.1.3)
+VERSION_LITERAL : [0-9]+ ('.' [0-9]+)+ ;
 
 
 // === PRIMITIVE DATA TYPES ===
-// Defines basic types supported by the configuration language
-INT : [0-9]+ ; // Represents integer values (e.g., 42)
-FLOAT : [0-9]+ '.' [0-9]* ; // Represents floating-point numbers (e.g., 3.14)
-BOOLEAN : 'true' | 'false' ; // Boolean values (true or false)
+INT       : [0-9]+ ;
+FLOAT     : [0-9]+ '.' [0-9]* ;
+BOOLEAN   : 'true' | 'false' ;
+DIMENSION : [0-9]+ 'x' [0-9]+ ;
 
 
-// === STRINGS ===
-// Defines single-line and multi-line strings, with optional interpolation
-STRING : '"' (ESCAPED_CHAR | ~["\\$])* ('${' expression '}')* '"' | '"""' (ESCAPED_CHAR | .)*? '"""' ; // Multi-line string support
+// === STRINGS WITH ADVANCED INTERPOLATION ---
+// Single-line or multi-line strings with support for interpolation and formatting.
+// Interpolations of the form: ${ expression (COMMA expression)* (COLON formatSpecifier)? }
+STRING 
+    : '"' (ESCAPED_CHAR | ~["\\$])* (INTERP)* '"' 
+    | '"""' (ESCAPED_CHAR | .)*? '"""'
+    ;
+fragment INTERP 
+    : '${' expression (COMMA expression)* (COLON formatSpecifier)? '}'
+    ;
+fragment formatSpecifier 
+    : 'upper'
+    | 'lower'
+    | 'title'
+    | 'currency'
+    | 'date'
+    ;
 
 
 // === ASSET PATTERNS ===
-// Defines patterns for external assets (e.g., ranges and filenames)
-ASSET_PATTERN : [a-zA-Z_]+ '{' INT '...' INT '}' [a-zAZ0-9_.]+ ; // Asset definition with ranges
+ASSET_PATTERN 
+    : [a-zA-Z_]+ '{' INT '...' INT '}' [a-zA-Z0-9_.]+
+    ;
 
 
-// === SYMBOLS ===
-// Operators and delimiters used in syntax
-EQUAL : '=' ; // Assignment operator
-COLON : ':' ; // Key-value pair separator
-COMMA : ',' ; // List item separator
-PIPE : '|' ; // Represents alternatives in lists
-ELLIPSIS : '...' ; // Indicates list expansion or ranges
-PLUS : '+' ; // Arithmetic addition
-MINUS : '-' ; // Arithmetic subtraction
-STAR : '*' ; // Arithmetic multiplication
-DIV : '/' ; // Arithmetic division
-AT : '@' ; // Prefix for annotations
+// === SYMBOLS AND DELIMITERS ===
+EQUAL      : '=' ;
+ARROW      : '=>' ;
+COLON      : ':' ;
+COMMA      : ',' ;
+PIPE       : '|' ;
+ELLIPSIS   : '...' ;
+PLUS       : '+' ;
+MINUS      : '-' ;
+STAR       : '*' ;
+DIV        : '/' ;
 
+METADATA_START : '#[' ;
+METADATA_END   : ']' ;
 
-// === DELIMITERS ===
-// Tokens for grouping or organizing sections
-LA_BRACKET : '[' ; // Left square bracket for lists
-RA_BRACKET : ']' ; // Right square bracket for lists
-LC_BRACE : '{' ; // Left curly brace for macro or block definitions
-RC_BRACE : '}' ; // Right curly brace for macro or block definitions
-L_PAREN : '(' ; // Left parenthesis for annotation arguments
-R_PAREN : ')' ; // Right parenthesis for annotation arguments
+LA_BRACKET : '[' ;
+RA_BRACKET : ']' ;
+LC_BRACE   : '{' ;
+RC_BRACE   : '}' ;
+L_PAREN    : '(' ;
+R_PAREN    : ')' ;
+
+AT         : '@' ;
+
 
 // === IDENTIFIERS ===
-// Tokens for variable, macro, or resource identifiers
-ID : [a-zA-Z_][a-zA-Z_0-9]* ; // Represents alphanumeric identifiers
+ID : [a-zA-Z_][a-zA-Z_0-9]* ;
 
 
 // === COMMENTS ===
-// Tokens for defining single-line and multi-line comments
-HASH_COMMENT : '#' ~[\r\n]* ; // Single-line comments using "#"
-COMMENT_BLOCK : '/*' .*? '*/' -> skip ; // Multi-line comments enclosed by "/* */"
+HASH_COMMENT : '#' ~[\r\n]* ;
+COMMENT_BLOCK : '/*' .*? '*/' -> skip ;
 
 
 // === WHITESPACE AND NEWLINES ===
-// Tokens for spacing and line breaks, ignored during parsing
-NEWLINE : [\r\n]+ ; // Matches newline characters
-WS : [ \t]+ -> skip ; // Matches spaces and tabs, skipped in parsing
+NEWLINE : [\r\n]+ ;
+WS : [ \t]+ -> skip ;
 
 
-// === ESCAPED CHARACTERS ===
-// Fragment for escape sequences used within strings
-fragment ESCAPED_CHAR : '\\' [\"\\] ; // Handles escaped characters (e.g., \" or \\)
+// === NUMBER (for INT and FLOAT as literal) ---
+NUMBER : [0-9]+ ('.' [0-9]+)? ;
+
+
+// === ESCAPED CHARACTERS ---
+fragment ESCAPED_CHAR : '\\' . ;
