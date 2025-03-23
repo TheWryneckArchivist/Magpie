@@ -15,11 +15,20 @@ AS            : 'as' ;
 CONST         : 'const' ;
 IF            : 'if' ;
 ELSE          : 'else' ;
-
+INFIX         : 'infix' ;
+INCLUDE       : 'include' ;
+ENV           : 'env' ;
+SECURE        : 'secure' ;
+SHA256        : 'sha256' ;
+POLICY        : 'policy' ;
+ALLOW         : 'allow' ;
+DENY          : 'deny' ;
+FOR           : 'for' ;
+IN            : 'in' ;
+TO            : 'to' ;
 
 // === VERSION TOKENS ===
 VERSION_LITERAL : [0-9]+ ('.' [0-9]+)+ ;
-
 
 // === PRIMITIVE DATA TYPES ===
 INT       : [0-9]+ ;
@@ -27,10 +36,8 @@ FLOAT     : [0-9]+ '.' [0-9]* ;
 BOOLEAN   : 'true' | 'false' ;
 DIMENSION : [0-9]+ 'x' [0-9]+ ;
 
-
 // === STRINGS WITH ADVANCED INTERPOLATION ---
 // Single-line or multi-line strings with support for interpolation and formatting.
-// Interpolations of the form: ${ expression (COMMA expression)* (COLON formatSpecifier)? }
 STRING 
     : '"' (ESCAPED_CHAR | ~["\\$])* (INTERP)* '"' 
     | '"""' (ESCAPED_CHAR | .)*? '"""'
@@ -46,12 +53,10 @@ fragment formatSpecifier
     | 'date'
     ;
 
-
 // === ASSET PATTERNS ===
 ASSET_PATTERN 
     : [a-zA-Z_]+ '{' INT '...' INT '}' [a-zA-Z0-9_.]+
     ;
-
 
 // === SYMBOLS AND DELIMITERS ===
 EQUAL      : '=' ;
@@ -77,24 +82,19 @@ R_PAREN    : ')' ;
 
 AT         : '@' ;
 
-
 // === IDENTIFIERS ===
 ID : [a-zA-Z_][a-zA-Z_0-9]* ;
-
 
 // === COMMENTS ===
 HASH_COMMENT : '#' ~[\r\n]* ;
 COMMENT_BLOCK : '/*' .*? '*/' -> skip ;
 
-
 // === WHITESPACE AND NEWLINES ===
 NEWLINE : [\r\n]+ ;
 WS : [ \t]+ -> skip ;
 
-
 // === NUMBER (for INT and FLOAT as literal) ---
 NUMBER : [0-9]+ ('.' [0-9]+)? ;
-
 
 // === ESCAPED CHARACTERS ---
 fragment ESCAPED_CHAR : '\\' . ;
