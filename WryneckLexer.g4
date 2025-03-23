@@ -26,6 +26,13 @@ DENY          : 'deny' ;
 FOR           : 'for' ;
 IN            : 'in' ;
 TO            : 'to' ;
+// --- New reserved keywords for cryptography and system environment ---
+ENCRYPT       : 'encrypt' ;
+DECRYPT       : 'decrypt' ;
+SIGN          : 'sign' ;
+VERIFY        : 'verify' ;
+HASH          : 'hash' ;
+SYSENV        : 'sysenv' ;
 
 // === VERSION TOKENS ===
 VERSION_LITERAL : [0-9]+ ('.' [0-9]+)+ ;
@@ -37,7 +44,6 @@ BOOLEAN   : 'true' | 'false' ;
 DIMENSION : [0-9]+ 'x' [0-9]+ ;
 
 // === STRINGS WITH ADVANCED INTERPOLATION ---
-// Single-line or multi-line strings with support for interpolation and formatting.
 STRING 
     : '"' (ESCAPED_CHAR | ~["\\$])* (INTERP)* '"' 
     | '"""' (ESCAPED_CHAR | .)*? '"""'
