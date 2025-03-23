@@ -2,8 +2,6 @@
 
 A dynamic configuration extension file format with interpreter.
 
-These files are small, only amounting to ~200 LoC!
-
 ## Language Features
 
 * Dynamic Computation & Expression Handling
@@ -16,15 +14,15 @@ These files are small, only amounting to ~200 LoC!
 * Secure and Traceable Configuration
 * Flexible Data Types and Serialization
 
-## Motivation: Why Create It In the First Place?
+## Motivation Behind the Project
 
-That's simple: the requirements of my video game, One With You, has made such a task necessary. 
+That's simple: the requirements of my video game, 'One With You,' necessitated this development.
 
-Having started a cruder version back in early March of 2025, I have been writing a language translator by hand for parsing my custom configuration extension file format, *.wry. An intermediate software that hot reloads the program based on dynamic data was required. Not long after that, the partial write up of its earlier version was too tedious to work with.
+Given the wide adoption of better data interchange formats, I intend it for my use. Nonetheless, having started a less refined version back in the early March of 2025, I have been manually writing a language translator, primarily for parsing my custom configuration extension file format via recursive descent parsing. An intermediate software that hot reloads the program based on dynamic data is required. Not long after that, the partial write up of its earlier version was too tedious to work with.
 
-Only until having relevant specialized tooling and reference works—available in [the ANTLR v4 website](https://www.antlr.org/)— at my disposal did I finally revise the formal specification of its context-free grammar. As there already are wide adoption of better data interchange formats out there, I only expect to use it for my purposes. 
+Only when I had relevant specialized tooling and reference works—available in [the ANTLR v4](https://www.antlr.org/) and [the LLVM compiler infrastructure](https://llvm.org/) websites— at my disposal did I finally revise the formal specification of its context-free grammar. My intellectual property being open source, you can see tokens and syntactic rules divided into two grammar files, respectively the lexer and parser files. They currently amount to ~200 LoC, but these will grow in number quite soon. As expected of static storage configuration file formats, it works as one, while also having a half-fledged scripting capabilities robust enough for some use cases in the game development industry.
 
-## Learn Through Examples
+## Illustrative Examples
 
 * Dynamic Computation & Expression Handling
   * Computed Properties:
