@@ -20,6 +20,8 @@ statement
     | infixDefinition                  // Custom operator definitions
     | includeStatement                 // File inclusion statement
     | policyStatement                  // Security policy block
+    | cryptoStatement                  // Cryptography functions (encrypt, decrypt, sign, verify, hash)
+    | sysenvStatement                  // System environment retrieval
     | comment                          // Comments
     ;
 
@@ -115,6 +117,38 @@ allowRule
     ;
 denyRule
     : DENY expression NEWLINE
+    ;
+
+// === CRYPTOGRAPHY STATEMENT ---
+// Supports functions like encrypt, decrypt, sign, verify, and generic hash operations.
+cryptoStatement
+    : ( encryptStatement 
+      | decryptStatement 
+      | signStatement 
+      | verifyStatement 
+      | hashStatement )
+    ;
+
+encryptStatement
+    : ENCRYPT L_PAREN expression COMMA expression R_PAREN NEWLINE
+    ;
+decryptStatement
+    : DECRYPT L_PAREN expression COMMA expression R_PAREN NEWLINE
+    ;
+signStatement
+    : SIGN L_PAREN expression COMMA expression R_PAREN NEWLINE
+    ;
+verifyStatement
+    : VERIFY L_PAREN expression COMMA expression R_PAREN NEWLINE
+    ;
+hashStatement
+    : HASH L_PAREN expression R_PAREN NEWLINE
+    ;
+
+// === SYSTEM ENVIRONMENT STATEMENT ---
+// Retrieves system environment values
+sysenvStatement
+    : SYSENV L_PAREN expression R_PAREN NEWLINE
     ;
 
 // === COMMENTS ===
