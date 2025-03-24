@@ -52,7 +52,7 @@ versionControlType : STABLE | DEPRECATED | EXPERIMENTAL ;
 /* Defines if-else blocks to adapt the configuration based on conditions. */
 conditional : IF L_PAREN expression R_PAREN LC_BRACE statement* RC_BRACE (ELSE LC_BRACE statement* RC_BRACE)? ;  
 
-// === ANNOTATED METADATA ---  
+// === ANNOTATED METADATA ===
 /* Metadata annotations for categorizing or tagging configuration properties. */
 metadata : METADATA_START ID (COMMA ID)* METADATA_END NEWLINE ;  
 
@@ -71,7 +71,7 @@ policyBody : (allowRule | denyRule)* ;
 allowRule : ALLOW expression NEWLINE ;  // Allow a specific condition
 denyRule : DENY expression NEWLINE ;  // Deny a specific condition
 
-// === CRYPTOGRAPHY STATEMENT ---  
+// === CRYPTOGRAPHY STATEMENT ===  
 /* Supports cryptographic functions like encryption, decryption, signing, and verification. */
 cryptoStatement : ( encryptStatement | decryptStatement | signStatement | verifyStatement | hashStatement ) ;  
 encryptStatement : ENCRYPT L_PAREN expression COMMA expression R_PAREN NEWLINE ;  // Encrypt data
@@ -80,7 +80,7 @@ signStatement : SIGN L_PAREN expression COMMA expression R_PAREN NEWLINE ;  // S
 verifyStatement : VERIFY L_PAREN expression COMMA expression R_PAREN NEWLINE ;  // Verify signature
 hashStatement : HASH L_PAREN expression R_PAREN NEWLINE ;  // Generate hash
 
-// === SYSTEM ENVIRONMENT STATEMENT ---  
+// === SYSTEM ENVIRONMENT STATEMENT ===  
 /* Retrieves system-specific information, such as OS or hostname. */
 sysenvStatement : SYSENV L_PAREN expression R_PAREN NEWLINE ;  
 
@@ -92,19 +92,19 @@ comment : HASH_COMMENT | COMMENT_BLOCK ;
 /* Expressions are the building blocks of the configuration, used for calculations or evaluations. */
 expression : primaryExpression (operator primaryExpression)* ;  
 
-// --- MATH OPERATORS & Conversion Operator ---  
+// === MATH OPERATORS & Conversion Operator ===
 operator : PLUS | MINUS | STAR | DIV | TO ;  // Basic operators and unit conversion
 
 // === PRIMARY EXPRESSIONS ===  
 primaryExpression : literal | functionCall | variable | lambdaExpr | '(' expression ')' | list | dictionary ;  
 
-// --- Lambda-like expression ---  
+// === Lambda-like expression ===  
 lambdaExpr : PIPE paramList PIPE expression ;  // Anonymous function definition
 
-// --- List (Array) with Optional Comprehension ---  
+// === List (Array) with Optional Comprehension === 
 list : LA_BRACKET (expression (COMMA expression)*)? (FOR ID IN expression (IF expression)?)? RA_BRACKET ;  // List with optional comprehension
 
-// --- Dictionary ---  
+// === Dictionary ===
 dictionary : LC_BRACE (keyValuePair (COMMA keyValuePair)*)? RC_BRACE ;  // Key-value pairs for configuration
 
 keyValuePair : ID COLON expression ;  // A single key-value pair
@@ -116,5 +116,5 @@ type : 'int' | 'float' | 'bool' | 'string' | 'dimension' ;  // Supported types f
 literal : STRING | NUMBER | BOOLEAN | ASSET_PATTERN ;  // Types of literals
 variable : ID ;  // A variable identifier
 
-// === ATTRIBUTE (for resource references) ---  
+// === ATTRIBUTE (for resource references) ===
 attribute : ID EQUAL expression ;  // Key-value pair for resource attributes
