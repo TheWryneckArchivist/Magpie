@@ -1,5 +1,5 @@
-parser grammar WryneckParser;  
-options { tokenVocab=WryneckLexer; }  
+parser grammar MagpieParser;  
+options { tokenVocab=MagpieLexer; }  
 
 // === ROOT RULE ===  
 /* The entry point for parsing the configuration file. This will parse multiple statements until the end of the file. */
