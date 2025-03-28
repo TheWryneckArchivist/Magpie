@@ -6,7 +6,7 @@ As expected, Wryneck should function as a configuration file format but also wil
 
 ## Motivation Behind the Project
 
-That is simple: the dream video game that I wish to create inspired this development.
+That is simple: the dream video game that I wish to create inspired this development. Its current state is unusable, but it is to be expected.
 
 Given the wide adoption of better data interchange formats out there, it is intended for my use. Nonetheless, having started a primitive version back in the early March of 2025, I have been manually writing a language translator for parsing my custom configuration file via recursive descent parsing strategy. 
 
