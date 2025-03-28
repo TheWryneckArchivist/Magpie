@@ -6,7 +6,7 @@ As expected, Wryneck functions as a configuration file format but also offers li
 
 ## Motivation Behind the Project
 
-That is simple: the requirements of my video game, “One With You,” necessitated this development.
+That is simple: One of my dream video game I wish to make inspired this development.
 
 Given the wide adoption of better data interchange formats out there, it is intended for my use. Nonetheless, having started a primitive version back in the early March of 2025, I have been manually writing a language translator for parsing my custom configuration file via recursive descent parsing strategy. 
 
