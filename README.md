@@ -1,8 +1,8 @@
 # Wryneck
 
-A dynamic configuration extension file format with interpreter.
+A dynamic configuration extension file format with upcoming interpreter.
 
-As expected, Wryneck functions as a configuration file format but also offers lightweight scripting capabilities robust enough for certain game development applications.
+As expected, Wryneck should function as a configuration file format but also will offer lightweight scripting capabilities robust enough for certain game development applications.
 
 ## Motivation Behind the Project
 
