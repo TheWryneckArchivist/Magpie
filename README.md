@@ -1,8 +1,8 @@
-# Wryneck
+# Magpie
 
 A dynamic configuration extension file format with interpreter for the upcoming future.
 
-As expected, Wryneck should function as a configuration file format but also will offer lightweight scripting capabilities robust enough for certain game development applications.
+As expected, Magpie should function as a configuration file format but also will offer lightweight scripting capabilities robust enough for certain game development applications.
 
 ## Motivation Behind the Project
 
