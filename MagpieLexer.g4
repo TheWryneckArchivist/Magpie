@@ -1,4 +1,4 @@
-lexer grammar WryneckLexer;
+lexer grammar MagpieLexer;
 
 // === RESERVED KEYWORDS ===
 /* These are the core reserved keywords that define specific actions and attributes in the language. */
