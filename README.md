@@ -6,7 +6,7 @@ As expected, Magpie should function as a configuration file format but also will
 
 ## Motivation Behind the Project
 
-If you ever wonder what started all this, I might just tell any reader that the dream video game that I wish to create inspired this development—an intermediate software that hot reloads the program based on dynamic data is required for that program, and thus the project was born.
+If you ever wonder what started all this, I might just tell any reader here that the dream video game  I wish to create inspired this development—an intermediate software that hot reloads the program based on dynamic data is required for that program, and thus the project was born.
 
 Given the wide adoption of better data interchange formats out there, it is intended for my use. I have been manually writing a language translator for parsing my custom configuration file, having started the partial write up of its earliest version back in the early March of 2025. Unfortunately, it was too tedious to handle, so I opted for another solution.
 
