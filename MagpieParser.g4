@@ -10,7 +10,7 @@ file : statement* EOF ;
 statement : versionField | importStatement | constant | assignment | computedProperty | macro | resourceReference | versionControlStatement | conditional | metadata | infixDefinition | includeStatement | policyStatement | cryptoStatement | sysenvStatement | comment ;  
 
 // VERSION FIELD
-/* Defines the version of the configuration file using the '_version' keyword. */
+/* Defines the version of the configuration file using the 'version' keyword. */
 versionField : VERSION_KEY EQUAL versionLiteral NEWLINE ;  
 versionLiteral : VERSION_LITERAL ;  // The version number format
 
