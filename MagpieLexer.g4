@@ -1,8 +1,7 @@
 lexer grammar MagpieLexer;
 
-// === RESERVED KEYWORDS ===
-/* These are the core reserved keywords that define specific actions and attributes in the language. */
-VERSION_KEY   : '_version' ;      // Keyword for specifying the version of the configuration
+// Reserved keywords
+VERSION_KEY   : 'version' ;      // Keyword for specifying the version of the configuration
 IMPORT        : 'import' ;        // For importing other configuration files
 MACRO         : 'macro' ;         // Define macros for reusable configuration blocks
 RESOURCE      : 'resource' ;      // Reference external resources like files or assets
@@ -18,39 +17,26 @@ IF            : 'if' ;            // Start of conditional blocks
 ELSE          : 'else' ;          // Alternate branch in conditional blocks
 INFIX         : 'infix' ;         // Define custom infix operators
 INCLUDE       : 'include' ;       // Include external configuration files
-ENV           : 'env' ;           // Retrieve environment variables
-SECURE        : 'secure' ;        // Handle secure data like passwords
-SHA256        : 'sha256' ;        // Define SHA-256 hash function
-POLICY        : 'policy' ;        // Define access control policies
-ALLOW         : 'allow' ;         // Allow a specific action or access
-DENY          : 'deny' ;          // Deny a specific action or access
 FOR           : 'for' ;           // Used in loops and list comprehensions
 IN            : 'in' ;            // Used in loops and list comprehensions
 TO            : 'to' ;            // Used for unit conversions
 
-// === VERSION TOKENS ===
-/* This defines a version literal format, which is a sequence of numbers separated by dots (e.g., 1.0.0). */
+// Version tokens
 VERSION_LITERAL : [0-9]+ ('.' [0-9]+)+ ;
 
-// === PRIMITIVE DATA TYPES ===
-/* These rules define basic data types used for variables and expressions. */
+// Primitive data types
 INT       : [0-9]+ ;              // Integer numbers
 FLOAT     : [0-9]+ '.' [0-9]* ;   // Floating-point numbers
 BOOLEAN   : 'true' | 'false' ;    // Boolean values
 DIMENSION : [0-9]+ 'x' [0-9]+ ;   // Dimensions in format 1920x1080
-
-// === STRINGS WITH ADVANCED INTERPOLATION --- 
-/* String literals with support for escape characters and interpolation using ${}. */
 STRING : '"' (ESCAPED_CHAR | ~["\\$])* (INTERP)* '"' | '"""' (ESCAPED_CHAR | .)*? '"""' ;
 fragment INTERP : '${' expression (COMMA expression)* (COLON formatSpecifier)? '}' ;  // Interpolation inside strings
 fragment formatSpecifier : 'upper' | 'lower' | 'title' | 'currency' | 'date' ;        // String formatting options
 
-// === ASSET PATTERNS ===
-/* This rule allows defining patterns for referencing assets or files, e.g., file1.png, file2.png. */
+// Asset pattern
 ASSET_PATTERN : [a-zA-Z_]+ '{' INT '...' INT '}' [a-zA-Z0-9_.]+ ;
 
-// === SYMBOLS AND DELIMITERS ===
-/* Define common symbols used for assignment, logic, and structure in the configuration. */
+// Symbols and delimiters
 EQUAL      : '=' ;                // Assignment operator
 ARROW      : '=>' ;               // Used for computed properties or dynamic assignment
 COLON      : ':' ;                // Separator for key-value pairs
@@ -71,22 +57,19 @@ L_PAREN    : '(' ;                // Left parenthesis
 R_PAREN    : ')' ;                // Right parenthesis
 AT         : '@' ;                // Used for annotations or references
 
-// === IDENTIFIERS ===
-/* Identifiers for variables, functions, or resources. */
+// Identifier
 ID : [a-zA-Z_][a-zA-Z_0-9]* ;
 
-// === COMMENTS ===
-/* Single-line and multi-line comments for documentation purposes. */
+// Comments
 HASH_COMMENT : '#' ~[\r\n]* ;            // Single-line comment
 COMMENT_BLOCK : '/*' .*? '*/' -> skip ;  // Multi-line comment (skipped in parsing)
 
-// === WHITESPACE AND NEWLINES ===
-/* Handle whitespace and newlines for proper formatting. */
+// Whitespace and newlines
 NEWLINE : [\r\n]+ ;               // Line breaks
 WS : [ \t]+ -> skip ;             // Skip whitespace characters
 
-// === NUMBER (for INT and FLOAT as literal) ---
+// Number
 NUMBER : [0-9]+ ('.' [0-9]+)? ;   // General number format
 
-// === ESCAPED CHARACTERS --- 
+// Escaped characters
 fragment ESCAPED_CHAR : '\\' . ;  // Escape character handling (e.g., for quotes, backslashes)
